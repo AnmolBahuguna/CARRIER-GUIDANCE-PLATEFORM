@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Career Guidance Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #2b3184, #b021c6);
+      padding: 30px;
+      color: #ffffff;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+      animation: fadeInDown 1s ease-in-out;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #ffffff;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #0c0c2d;
+      height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .sidebar h2 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      padding: 15px;
+    }
+    .sidebar ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      transition: background 0.3s;
+    }
+    .sidebar ul li a:hover {
+      background-color: #f8f8f8;
+      color: #000;
+    }
+    .main-content {
+      margin-left: 270px;
+      padding: 20px;
+    }
+    .section {
+      background: #000000;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+    }
+    .section h2 {
+      color: #ececec;
+      margin-bottom: 1rem;
+    }
+    .course-select {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      background: #001f3f;
+      color: white;
+      border: 1px solid #00aced;
+      width: 100%;
+    }
+    .section-tech {
+      background: #ffffff;
+      margin-top: 3rem;
+      padding: 1.5rem;
+      border-left: 4px solid #00aced;
+      border-radius: 6px;
+      color: #1946ce;
+    }
+    .section-tech ul li {
+      margin-bottom: 0.5rem;
+    }
+    .quiz-section {
+      background: #12346b;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 30px;
+    }
+    .quiz-section button {
+      margin: 5px;
+      padding: 8px 16px;
+      background-color: rgb(120, 81, 169);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .quiz-section button:hover {
+      background-color: #0288d1;
+    }
+    #nextBtn {
+      margin-top: 20px;
+      background-color: #0288d1;
+    }
+    .explore-more {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 3rem;
+      text-align: center;
+      color: #7b0e7b;
+    }
+    .explore-more a {
+      color: #00aced;
+    }
+    footer {
+      background-color: #0c0c2d;
+      color: #aaa;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      border-top: 1px solid #333;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .quiz-section {
+    background: #12346b;
+    padding: 40px;
+    border-radius: 15px;
+    margin-top: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.quiz-section h2 {
+    margin-bottom: 30px; /* Enough space between heading and button */
+    color: #ffffff;
+}
+
+.start-quiz-btn {
+    width: 80px;   /* Decent button size */
+    height: 80px;
+    border-radius: 50%; /* Perfect round shape */
+    font-size: 36px; /* Play icon size */
+    background-color: #00aced;
+    color: white;
+    border: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.start-quiz-btn:hover {
+    background-color: #0288d1;
+}
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #001f3f;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0c0c2d;
+  min-width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #5757d1;
+}
+
+.custom-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.custom-dropdown:hover .dropbtn {
+  background-color: #003366;
+}
+
+
+  </style>
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <h2>Navigation</h2>
+    <ul>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#quiz">Career Quiz</a></li>
+      <li><a href="#explore">Explore More</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <h1><i class="fas fa-graduation-cap"></i> Smart Career Guidance</h1>
+      <p>CHOOSE THE RIGHT PATH FOR YOUR FUTURE</p>
+    </header>
+
+    <div class="custom-dropdown">
+        <button class="dropbtn">Choose a Course</button>
+        <div class="dropdown-content">
+          <a href="bca.html">BCA - Bachelor of Computer Applications</a>
+          <a href="btech.html">B.Tech - Bachelor of Technology</a>
+          <a href="bba.html">BBA - Bachelor of Business Administration</a>
+          <a href="bsc.html">Bsc - Bachelor of Science</a>
+          <a href="ba.html">BA - Bachelor of Arts</a>
+          <a href="animation.html">Animation & Design</a>
+          <a href="mbbs.html">MBBS - Bachelor of Medicine</a>
+          <a href="law.html">LLB - Bachelor of Law</a>
+        </div>
+      </div>
+
+    <div class="section-tech" id="careerSection" style="display:none;">
+      <h2>Career Opportunities</h2>
+      <ul id="careerList"></ul>
+    </div>
+
+    <div class="quiz-section" id="quiz">
+        <h2><i class="fas fa-question-circle"></i> Career Guidance Quiz</h2>
+        <a href="t2.html">
+          <button class="start-quiz-btn">▶</button>
+        </a>
+    </div>
+
+    <div class="section-tech">
+      <h1>FUTURE FINDER PATH</h1>
+
+      <h2>Overview:</h2>
+      <p>FuturePathFinder is an educational and career guidance website designed to help students and aspiring professionals choose the right career path based on future demand.</p>
+
+      <h2>Main Purpose:</h2>
+      <p>To guide users in selecting the right career by recommending relevant courses, providing skill-building resources, and showcasing technologies used in various professions.</p>
+
+      <h2>Key Features:</h2>
+      <ul>
+        <li>Profession-wise course suggestions</li>
+        <li>Skills and technologies used in each career</li>
+        <li>Career growth and salary insights</li>
+        <li>Learning and upskilling resources</li>
+      </ul>
+
+      <h2>Example Profession – Data Scientist:</h2>
+      <p><strong>Skills:</strong> Python, SQL, ML, Statistics</p>
+      <p><strong>Technologies:</strong> Pandas, NumPy, Scikit-learn, TensorFlow</p>
+    </div>
+
+    <div class="explore-more" id="explore">
+      <h3><i class="fas fa-lightbulb"></i> Explore More Opportunities</h3>
+      <p>Not sure what suits you best? Take a personality-based career quiz to find your path.</p>
+      <p>Check out: <a href="https://www.youtube.com/" target="_blank">YouTube</a>, <a href="https://medium.com/" target="_blank">Medium</a></p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Smart Career Platform | Designed with purpose and passion</p>
+    <p>Contact: info@smartcareer.com | Follow us: <i class="fab fa-instagram"></i> <i class="fab fa-linkedin"></i></p>
+  </footer>
+
+  <script>
+    const careerData = {
+      bca: [
+        { title: "Full Stack Developer", skills: ["HTML", "CSS", "JS", "React", "Node.js"], colleges: ["Christ University", "Loyola College"] },
+        { title: "Data Scientist", skills: ["Python", "Pandas", "ML", "SQL"], colleges: ["SRM University", "VIT"] }
+      ],
+      btech: [
+        { title: "Software Engineer", skills: ["C++", "Java", "DSA", "System Design"], colleges: ["IIT Delhi", "BITS Pilani"] },
+        { title: "DevOps Engineer", skills: ["Linux", "Docker", "CI/CD"], colleges: ["IIIT Hyderabad", "NIT Trichy"] }
+      ],
+      bba: [
+        { title: "Marketing Analyst", skills: ["Excel", "Google Analytics", "SEO"], colleges: ["NMIMS", "Symbiosis"] },
+        { title: "Business Consultant", skills: ["Strategy", "Communication", "Presentation"], colleges: ["IIM Indore", "Shaheed Sukhdev College"] }
+      ],
+      ba: [
+        { title: "Content Writer", skills: ["Writing", "SEO", "Research"], colleges: ["Delhi University", "Jamia Millia Islamia"] },
+        { title: "Journalist", skills: ["Reporting", "Editing", "Fact-checking"], colleges: ["IIMC", "St. Xavier's"] }
+      ],
+      animation: [
+        { title: "3D Animator", skills: ["Blender", "Maya", "Creativity"], colleges: ["Arena Animation", "MAAC"] },
+        { title: "Graphic Designer", skills: ["Photoshop", "Illustrator"], colleges: ["Pearl Academy", "NID"] }
+      ],
+      mbbs: [
+        { title: "Doctor (General Physician)", skills: ["Biology", "Anatomy", "Clinical Knowledge"], colleges: ["AIIMS Delhi", "CMC Vellore"] },
+        { title: "Surgeon", skills: ["Surgical Skills", "Precision", "Endurance"], colleges: ["AFMC Pune", "JIPMER"] }
+      ],
+      law: [
+        { title: "Corporate Lawyer", skills: ["Legal Writing", "Corporate Law", "Research"], colleges: ["NLU Bangalore", "Symbiosis Law School"] },
+        { title: "Criminal Lawyer", skills: ["Criminal Law", "Argumentation", "Critical Thinking"], colleges: ["NALSAR", "GNLU"] }
+      ]
+    };
+
+    document.getElementById('courseSelect').addEventListener('change', function() {
+      const course = this.value;
+      const careerList = document.getElementById('careerList');
+      const careerSection = document.getElementById('careerSection');
+      careerList.innerHTML = '';
+
+      if (careerData[course]) {
+        careerSection.style.display = 'block';
+        careerData[course].forEach(career => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong><i class='fas fa-user-graduate'></i> ${career.title}</strong><br>Skills: ${career.skills.join(', ')}<br>Top Colleges: ${career.colleges.join(', ')}`;
+          careerList.appendChild(li);
+        });
+      } else {
+        careerSection.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
