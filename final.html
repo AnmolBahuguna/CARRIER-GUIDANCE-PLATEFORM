@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Career Guidance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #2b3184, #b021c6);
+      color: #ffffff;
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 100px;
+    }
+    header {
+      text-align: center;
+      padding: 50px 20px;
+      animation: fadeInDown 1s ease-in-out;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #ffffff;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #0c0c2d;
+      height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+    .sidebar h2 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      padding: 15px;
+    }
+    .sidebar ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      transition: background 0.3s;
+    }
+    .sidebar ul li a:hover {
+      background-color: #f8f8f8;
+      color: #000;
+      border-radius: 5px;
+      padding: 8px;
+    }
+    .main-content {
+      margin-left: 270px;
+      padding: 20px;
+      padding-bottom: 100px;
+    }
+    .section {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+    }
+    .section h2 {
+      color: #ececec;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .course-select {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      background: #001f3f;
+      color: white;
+      border: 1px solid #00aced;
+      width: 100%;
+      cursor: pointer;
+    }
+    .section-tech {
+      background: #ffffff;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-left: 4px solid #00aced;
+      border-radius: 6px;
+      color: #1946ce;
+    }
+    .section-tech h1, .section-tech h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .section-tech ul li {
+      margin-bottom: 0.5rem;
+    }
+    .quiz-section {
+      background: rgba(18, 52, 107, 0.9);
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 30px;
+    }
+    .quiz-section button {
+      margin: 8px;
+      padding: 12px 20px;
+      background-color: rgb(120, 81, 169);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      width: calc(50% - 16px);
+    }
+    .quiz-section button:hover {
+      background-color: #0288d1;
+      transform: translateY(-2px);
+    }
+    #nextBtn {
+      margin-top: 20px;
+      background-color: #0288d1;
+      display: block;
+      width: 120px;
+    }
+    .explore-more {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 3rem;
+      text-align: center;
+      color: #7b0e7b;
+    }
+    .explore-more a {
+      color: #00aced;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .explore-more a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      background-color: #0c0c2d;
+      color: #aaa;
+      text-align: center;
+      padding: 1rem;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      border-top: 1px solid #333;
+    }
+    .course-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      margin: 15px 0;
+      padding: 15px;
+      color: #333;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+    }
+    .course-card:hover {
+      transform: translateY(-5px);
+    }
+    .course-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .course-header i {
+      font-size: 28px;
+      margin-right: 15px;
+      color: #2b3184;
+    }
+    .course-details {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 0.9rem;
+    }
+    .course-details div {
+      background: #f0f0f0;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .career-path {
+      background: #eef5ff;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border-left: 3px solid #2b3184;
+    }
+    .career-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 5px;
+    }
+    .skill-tag {
+      background: #e0e7ff;
+      padding: 3px 8px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+    }
+    .college-list {
+      margin-top: 15px;
+    }
+    .college-list h4 {
+      margin-bottom: 5px;
+      color: #2b3184;
+    }
+    .college-list ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style-type: none;
+      gap: 5px;
+    }
+    .college-list li {
+      background: #f0f0f0;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+    }
+    .about-section, .contact-section {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 25px;
+      border-radius: 10px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .about-section h2, .contact-section h2 {
+      color: #2b3184;
+      margin-bottom: 15px;
+    }
+    .team-member {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .team-member img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 20px;
+      object-fit: cover;
+    }
+    .contact-form {
+      display: grid;
+      gap: 15px;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .contact-form button {
+      padding: 12px;
+      background: #2b3184;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .contact-form button:hover {
+      background: #b021c6;
+    }
+    .mobile-menu-btn {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #0c0c2d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 101;
+    }
+    #courseCardsContainer {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    #questionText {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+    }
+    #resultBox {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .progress-bar {
+      height: 10px;
+      background: linear-gradient(to right, #2b3184, #b021c6);
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.5s;
+    }
+    .quiz-counter {
+      text-align: right;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: #ddd;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: #0c0c2d;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 24px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      cursor: pointer;
+    }
+    .back-to-top.active {
+      opacity: 1;
+    }
+    
+    @media (min-width: 768px) {
+      #courseCardsContainer {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: 0;
+        padding-top: 70px;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      .quiz-section button {
+        width: 100%;
+      }
+    }
+    .custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #001f3f;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0c0c2d;
+  min-width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #5757d1;
+}
+
+.custom-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.custom-dropdown:hover .dropbtn {
+  background-color: #003366;
+}
+    
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <button class="mobile-menu-btn" id="mobileMenuBtn">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="sidebar" id="sidebar">
+    <h2>MENU</h2>
+    <ul>
+      <li><a href="#about"><i class="fas fa-info-circle"></i> ABOUT US</a></li>
+      <li><a href="#courses"><i class="fas fa-graduation-cap"></i> COURSES</a></li>
+      <li><a href="#quiz"><i class="fas fa-question-circle"></i> CAREER QUIZ</a></li>
+      <li><a href="#explore"><i class="fas fa-compass"></i> EXPLORE MORE</a></li>
+      <li><a href="#contact"><i class="fas fa-envelope"></i> CONTACT US</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <h1><i class="fas fa-graduation-cap"></i> Smart Career Guidance</h1>
+      <p>CHOOSE THE RIGHT PATH FOR YOUR FUTURE</p>
+    </header>
+
+    <section id="about" class="about-section">
+      <h2><i class="fas fa-info-circle"></i> About Us</h2>
+      <p>Smart Career Guidance is your trusted companion in making informed decisions about your academic and professional journey. We provide comprehensive information about various courses, career opportunities, and job prospects to help you navigate your career path with confidence.</p>
+      
+      <h3 style="margin-top: 20px; color: #b021c6;">Our Mission</h3>
+      <p>To empower students and professionals with the knowledge and tools they need to make informed career decisions that align with their passion, skills, and market demands.</p>
+            
+
+    </section>
+
+    <section class="section" id="courses">
+      <h2><i class="fas fa-book"></i> Explore Courses</h2>
+      <div class="custom-dropdown">
+        <button class="dropbtn">Choose a Course</button>
+        <div class="dropdown-content">
+          <a href="bca.html">BCA - Bachelor of Computer Applications</a>
+          <a href="btech.html">B.Tech - Bachelor of Technology</a>
+          <a href="bba.html">BBA - Bachelor of Business Administration</a>
+          <a href="bsc.html">Bsc - Bachelor of Science</a>
+          <a href="ba.html">BA - Bachelor of Arts</a>
+          <a href="animation.html">Animation & Design</a>
+          <a href="mbbs.html">MBBS - Bachelor of Medicine</a>
+          <a href="law.html">LLB - Bachelor of Law</a>
+        </div>
+      </div>
+      <div id="courseDetails" style="display:none; margin-top: 20px;"></div>
+      
+      <div id="courseCardsContainer" style="margin-top: 30px;"></div>
+    </section>
+
+    <section class="quiz-section" id="quiz">
+      <h2><i class="fas fa-question-circle"></i> Career Guidance Quiz</h2>
+      <p>Take our comprehensive career guidance quiz to discover the perfect career path for you based on your interests, skills, and preferences.</p>
+      
+      <a href="t2.html">
+        <button class="start-quiz-btn">▶</button>
+      </a>
+
+    <div class="section-tech">
+      <h1>FUTURE PATH FINDER</h1>
+
+      <h2>Overview:</h2>
+      <p>FuturePathFinder is an educational and career guidance platform designed to help students and aspiring professionals choose the right career path based on future demand.</p>
+
+      <h2>Main Purpose:</h2>
+      <p>To guide users in selecting the right career by recommending relevant courses, providing skill-building resources, and showcasing technologies used in various professions.</p>
+
+      <h2>Key Features:</h2>
+      <ul>
+        <li>Profession-wise course suggestions</li>
+        <li>Skills and technologies used in each career</li>
+        <li>Career growth and salary insights</li>
+        <li>Learning and upskilling resources</li>
+      </ul>
+
+      <h2>Example Profession – Data Scientist:</h2>
+      <p><strong>Skills:</strong> Python, SQL, ML, Statistics</p>
+      <p><strong>Technologies:</strong> Pandas, NumPy, Scikit-learn, TensorFlow</p>
+    </div>
+
+    <div class="explore-more" id="explore">
+      <h3><i class="fas fa-lightbulb"></i> Explore More Opportunities</h3>
+      <p>Not sure what suits you best? Check out our resources to learn more about various career paths.</p>
+      <div style="display: flex; justify-content: center; margin-top: 20px; gap: 20px;">
+        <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube" style="font-size: 24px;"></i> YouTube Channel</a>
+        <a href="https://medium.com/" target="_blank"><i class="fab fa-medium" style="font-size: 24px;"></i> Medium Blog</a>
+        <a href="#" target="_blank"><i class="fas fa-podcast" style="font-size: 24px;"></i> Career Podcasts</a>
+      </div>
+    </div>
+    
+    <section id="contact" class="contact-section">
+      <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+      <p>Have questions about your career path? Need personalized guidance? Feel free to reach out to us!</p>
+      
+      <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <input type="text" placeholder="Subject">
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      
+      <div style="margin-top: 30px;">
+        <h3 style="color: #b021c6;">Connect With Us</h3>
+        <div style="display: flex; gap: 20px; margin-top: 15px;">
+          <a href="#" style="color: #2b3184; font-size: 24px;"><i class="fab fa-facebook"></i></a>
+          <a href="#" style="color: #2b3184; font-size: 24px;"><i class="fab fa-instagram"></i></a>
+          <a href="#" style="color: #2b3184; font-size: 24px;"><i class="fab fa-linkedin"></i></a>
+          <a href="#" style="color: #2b3184; font-size: 24px;"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <a href="#" class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <footer>
+    <p>&copy; 2025 Smart Career Platform | Designed with purpose and passion</p>
+    <p>Contact: info@smartcareer.com | Follow us: <i class="fab fa-instagram"></i> <i class="fab fa-linkedin"></i></p>
+  </footer>
+
+</body>
+</html>
