@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Career Guidance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        #main {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            display: inline-block;
+            max-width: 600px;
+            width: 90%;
+            margin-top: 30px;
+            transition: opacity 0.5s;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        .option {
+            display: block;
+            margin: 10px 0;
+            font-size: 18px;
+            text-align: left;
+            cursor: pointer;
+        }
+        button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #ff3b2e;
+        }
+        .result {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+        ul {
+            text-align: left;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🎯 Smart Career Guidance Platform</h1>
+<div id="main"></div>
+
+<script>
+let userName = "";
+let answers = [];
+let currentQuestion = 0;
+
+// Questions
+const questions = [
+    "First, please enter your name:",
+    "1. What do you enjoy more?",
+    "2. Would you prefer to:",
+    "3. Which sounds more exciting?",
+    "4. How do you prefer working?",
+    "5. What motivates you the most?",
+    "6. Are you interested in Biology, Medicine, and Healthcare?",
+    "7. Are you interested in Law, Justice, and Legal Matters?"
+];
+
+// Options
+const options = [
+    [],
+    ["(a) Solving technical problems", "(b) Expressing yourself creatively", "(c) Leading a team or organizing tasks", "(d) Helping people and understanding emotions"],
+    ["(a) Work with technology", "(b) Work with art, media, or writing", "(c) Manage projects and lead initiatives", "(d) Support or counsel others"],
+    ["(a) Building apps, machines, or analyzing data", "(b) Designing, painting, writing stories, or marketing", "(c) Running a startup or managing a big event", "(d) Being a teacher, counselor, or social worker"],
+    ["(a) Independently solving problems", "(b) Collaboratively creating something new", "(c) Strategizing and coordinating work", "(d) Listening, empathizing, and helping others"],
+    ["(a) Innovation and discovery", "(b) Creativity and expression", "(c) Leadership and influence", "(d) Making a positive difference in people's lives"],
+    ["(a) Yes", "(b) No", "(c) Maybe", "(d) Not sure"],
+    ["(a) Yes", "(b) No", "(c) Maybe", "(d) Not sure"]
+];
+
+function renderQuestion() {
+    const main = document.getElementById('main');
+    main.style.opacity = 0;
+
+    setTimeout(() => {
+        main.innerHTML = '';
+
+        if (currentQuestion === 0) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Enter your name';
+            input.id = 'nameInput';
+            main.appendChild(input);
+        } else {
+            const question = document.createElement('div');
+            question.className = 'question';
+            question.innerHTML = `<h2>${questions[currentQuestion]}</h2>`;
+            main.appendChild(question);
+
+            options[currentQuestion].forEach((opt, index) => {
+                const label = document.createElement('label');
+                label.className = 'option';
+                label.innerHTML = `<input type="radio" name="option" value="${String.fromCharCode(97+index)}"> ${opt}`;
+                main.appendChild(label);
+                main.appendChild(document.createElement('br'));
+            });
+        }
+
+        const button = document.createElement('button');
+        button.innerText = currentQuestion === 0 ? "Start" : "Next";
+        button.onclick = nextStep;
+        main.appendChild(button);
+
+        window.scrollTo(0, 0);
+        main.style.opacity = 1;
+    }, 300);
+}
+
+function nextStep() {
+    if (currentQuestion === 0) {
+        const input = document.getElementById('nameInput').value.trim();
+        if (input === '') {
+            alert('Please enter your name!');
+            return;
+        }
+        userName = input;
+    } else {
+        const selected = document.querySelector('input[name="option"]:checked');
+        if (!selected) {
+            alert('Please select an option!');
+            return;
+        }
+        answers.push(selected.value);
+    }
+
+    currentQuestion++;
+    if (currentQuestion >= questions.length) {
+        showResult();
+    } else {
+        renderQuestion();
+    }
+}
+
+function showResult() {
+    const main = document.getElementById('main');
+    main.style.opacity = 0;
+
+    setTimeout(() => {
+        main.innerHTML = "<h2>🔍 Analyzing your answers...</h2>";
+        main.style.opacity = 1;
+    }, 300);
+
+    let techScore = 0, creativeScore = 0, managementScore = 0, socialScore = 0;
+    for (let i = 0; i < 5; i++) {
+        if (answers[i] === 'a') techScore++;
+        else if (answers[i] === 'b') creativeScore++;
+        else if (answers[i] === 'c') managementScore++;
+        else if (answers[i] === 'd') socialScore++;
+    }
+
+    setTimeout(() => {
+        let result = `<div class="result"><h2>Hello ${userName}!</h2>`;
+
+        if (answers[5] === 'a') {
+            result += `<p>👨‍⚕️ It looks like you have a passion for Medicine and Healthcare!</p>`;
+            result += `<p>🎓 Suggested Degree: MBBS (Bachelor of Medicine and Bachelor of Surgery)</p>`;
+        } else if (answers[6] === 'a') {
+            result += `<p>⚖️ You seem interested in Law and Legal Fields!</p>`;
+            result += `<p>🎓 Suggested Degree: LLB (Bachelor of Laws)</p>`;
+        } else {
+            const maxScore = Math.max(techScore, creativeScore, managementScore, socialScore);
+
+            if (techScore === maxScore) {
+                result += `<p>💻 You have a strong interest in Technology and Innovation!</p>`;
+                result += suggestOptions(["Software Engineer", "Data Scientist", "Mechanical Engineer"], ["B.Tech in Computer Science or BCA", "B.Sc in Data Science / Computer Science", "B.Tech in Mechanical Engineering"]);
+            } else if (creativeScore === maxScore) {
+                result += `<p>🎨 You have a strong interest in Creativity and Arts!</p>`;
+                result += suggestOptions(["Graphic Designer", "Content Writer", "Marketing Specialist"], ["B.Des or B.A in Fine Arts", "B.A in English or Journalism", "BBA in Marketing or B.Com"]);
+            } else if (managementScore === maxScore) {
+                result += `<p>📈 You have a strong interest in Leadership and Management!</p>`;
+                result += suggestOptions(["Product Manager", "Entrepreneur", "Event Manager"], ["BBA or B.Tech + MBA", "BBA in Entrepreneurship or B.Com", "BBA in Event Management"]);
+            } else if (socialScore === maxScore) {
+                result += `<p>🤝 You have a strong interest in Helping and Social Work!</p>`;
+                result += suggestOptions(["Psychologist", "Teacher", "Social Worker"], ["B.A in Psychology or B.Sc in Psychology", "B.Ed after Graduation", "B.A in Social Work"]);
+            } else {
+                result += `<p>✨ You have diverse interests! Explore interdisciplinary careers like UI/UX Design, Product Strategy, or Life Coaching!</p>`;
+            }
+        }
+
+        result += `<p>🌟 Always remember: Your future is bright! Keep learning and growing!</p></div>`;
+        main.innerHTML = result;
+    }, 1800);
+}
+
+function suggestOptions(careers, degrees) {
+    let html = "<p>👉 Suggested career paths:</p><ul>";
+    for (let i = 0; i < careers.length; i++) {
+        html += `<li><b>${careers[i]}</b>: 🎓 ${degrees[i]}</li>`;
+    }
+    html += "</ul>";
+    return html;
+}
+
+// Start the app
+renderQuestion();
+</script>
+
+</body>
+</html>
